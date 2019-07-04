@@ -13,6 +13,11 @@ output "platform_version" {
 output "version" {
   value = "${module.example.version}"
 }
+
 output "kubeconfig" {
   value = "${module.example.kubeconfig}"
+}
+
+output "config_map_aws_auth" {
+  value = "${module.example.config_map_aws_auth}"
 }

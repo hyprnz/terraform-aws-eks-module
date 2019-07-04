@@ -1,32 +1,6 @@
-locals {
-  kubeconfig = <<KUBECONFIG
-apiVersion: v1
-clusters:
-- cluster:
-    server: ${aws_eks_cluster.this.endpoint}
-    certificate-authority-data: ${aws_eks_cluster.this.certificate_authority.0.data}
-  name: kubernetes
-contexts:
-- context:
-    cluster: kubernetes
-    user: aws
-  name: aws
-current-context: aws
-kind: Config
-preferences: {}
-users:
-- name: aws
-  user:
-    exec:
-      apiVersion: client.authentication.k8s.io/v1alpha1
-      command: aws-iam-authenticator
-      args:
-        - "token"
-        - "-i"
-        - "${var.cluster_name}"
-KUBECONFIG
-}
-
+##
+# EKS Control Plane
+##
 resource "aws_eks_cluster" "this" {
 name        = "${var.cluster_name}"
 role_arn    = "${aws_iam_role.cluster_node.arn}"
@@ -48,3 +22,43 @@ depends_on  = [
 ]
 }
 
+##
+# Worker node launch configuration
+##
+resource "aws_launch_configuration" "worker_node" {
+  iam_instance_profile        = "${aws_iam_instance_profile.eks_worker_node.name}"
+  image_id                    = "${data.aws_ami.eks_worker.id}"
+  instance_type               = "t3.small"
+  name_prefix                 = "${var.cluster_name}"
+  security_groups             = ["${aws_security_group.worker_node.id}"]
+  user_data_base64            = "${base64encode(local.worker_node_userdata)}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+##
+# Worker node asg
+##
+
+resource "aws_autoscaling_group" "worker_node" {
+  desired_capacity     = 3
+  launch_configuration = "${aws_launch_configuration.worker_node.id}"
+  max_size             = 3
+  min_size             = 3
+  name                 = "${var.cluster_name}_worker_node"
+  vpc_zone_identifier  = ["${var.eks_worker_subnet_ids}"]
+
+  tag {
+    key                 = "Name"
+    value               = "${var.cluster_name}_worker_node"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "kubernetes.io/cluster/${var.cluster_name}"
+    value               = "owned"
+    propagate_at_launch = true
+  }
+}

@@ -9,6 +9,10 @@ variable "eks_master_subnet_ids" {
   default = []
 }
 
+variable "eks_worker_subnet_ids" {
+  description = "Subnet ids for the EKS worker nodes"
+  default = []
+}
 
 variable "allowed_client_mgmt_addresses" {
   description = "Public IP addresses allowed to connect to EKS master"
