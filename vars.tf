@@ -23,4 +23,13 @@ variable "k8s_version" {
   description = "The K8s version to use on the cluster"
 }
 
+variable "kubconfig_write_path" {
+  description = "path to write kubeconfig file"
+  default     = "./"
+}
+
+variable "config_map_write_path" {
+  description = "path to write config_map_aws_auth file"
+  default     = "./"
+}
 

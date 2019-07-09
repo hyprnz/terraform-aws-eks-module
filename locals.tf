@@ -1,4 +1,4 @@
-local {
+locals {
   ##
   # Kubeconfig
   ##
