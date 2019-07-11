@@ -18,16 +18,6 @@ resource "aws_security_group" "cluster_node" {
   }
 }
 
-resource "aws_security_group_rule" "cluster_mgmt_ingress_allow" {
-  cidr_blocks       = "${var.allowed_client_mgmt_addresses}"
-  description       = "Allow client management to cluster API server"
-  from_port         = 443
-  protocol          = "tcp"
-  security_group_id = "${aws_security_group.cluster_node.id}"
-  to_port           = 443
-  type              = "ingress"
-}
-
 resource "aws_security_group_rule" "cluster_ingress_worker_node_https" {
   description              = "Allow pods to communicate with the cluster API Server"
   from_port                = 443

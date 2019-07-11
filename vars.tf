@@ -14,11 +14,6 @@ variable "eks_worker_subnet_ids" {
   default = []
 }
 
-variable "allowed_client_mgmt_addresses" {
-  description = "Public IP addresses allowed to connect to EKS master"
-  default     = []
-}
-
 variable "k8s_version" {
   description = "The K8s version to use on the cluster"
 }
@@ -28,8 +23,8 @@ variable "kubconfig_write_path" {
   default     = "./"
 }
 
-variable "config_map_write_path" {
-  description = "path to write config_map_aws_auth file"
+variable "certificate_authority_write_path" {
+  description = "path to write the control plane certificate"
   default     = "./"
 }
 
