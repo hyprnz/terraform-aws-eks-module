@@ -7,3 +7,11 @@ data "aws_ami" "eks_worker" {
   most_recent = true
   owners      = ["602401143452"] # Amazon EKS AMI Account ID
 }
+
+data "aws_eks_cluster" "this" {
+  name = "${var.cluster_name}"
+}
+
+data "aws_eks_cluster_auth" "this" {
+  name = "${data.aws_eks_cluster.this.name}"
+}
