@@ -8,7 +8,7 @@ version     = "${var.k8s_version}"
 
 vpc_config {
   security_group_ids    = ["${aws_security_group.cluster_node.id}"]
-  subnet_ids            = "${var.eks_master_subnet_ids}"
+  subnet_ids            = ["${var.eks_master_subnet_ids}"]
   endpoint_private_access = true
   endpoint_public_access  = true
 }
@@ -28,7 +28,7 @@ depends_on  = [
 resource "aws_launch_configuration" "worker_node" {
   iam_instance_profile        = "${aws_iam_instance_profile.eks_worker_node.name}"
   image_id                    = "${data.aws_ami.eks_worker.id}"
-  instance_type               = "t3.small"
+  instance_type               = "${var.worker_node_instance_type}"
   name_prefix                 = "${var.cluster_name}"
   security_groups             = ["${aws_security_group.worker_node.id}"]
   user_data_base64            = "${base64encode(local.worker_node_userdata)}"
@@ -43,10 +43,10 @@ resource "aws_launch_configuration" "worker_node" {
 ##
 
 resource "aws_autoscaling_group" "worker_node" {
-  desired_capacity     = 3
+  desired_capacity     = "${var.worker_asg_desired_count}"
   launch_configuration = "${aws_launch_configuration.worker_node.id}"
-  max_size             = 3
-  min_size             = 3
+  max_size             = "${var.worker_asg_max_size}"
+  min_size             = "${var.worker_asg_min_size}"
   name                 = "${var.cluster_name}_worker_node"
   vpc_zone_identifier  = ["${var.eks_worker_subnet_ids}"]
 
