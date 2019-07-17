@@ -4,6 +4,17 @@ variable "cluster_name" {
 variable "vpc_id" {
 }
 
+variable "eks_vpc_enable_endpoint_private_access" {
+  description = "Enable EKS cluster endpoint from within the VPC"
+  default = true
+}
+
+variable "eks_vpc_enable_endpoint_public_access" {
+  description = "Enable EKS cluster endpoint from the internet"
+  default = false
+}
+
+
 variable "eks_master_subnet_ids" {
   description = "Subnet ids for the EKS Master Cluster"
   default = []

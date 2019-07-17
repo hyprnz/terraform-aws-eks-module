@@ -2,7 +2,7 @@
 # Cluster node roles and policy bindings
 ##
 resource "aws_iam_role" "cluster_node" {
-  name = "${var.cluster_name}_cluster_node"
+  name = "${var.cluster_name}-cluster-node"
 
 assume_role_policy = <<POLICY
 {
@@ -35,7 +35,7 @@ resource "aws_iam_role_policy_attachment" "amazon_eks_service_policy" {
 ##
 
 resource "aws_iam_role" "worker_node" {
-  name = "${var.cluster_name}_worker_node"
+  name = "${var.cluster_name}-worker-node"
 
   assume_role_policy = <<POLICY
 {

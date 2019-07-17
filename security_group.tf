@@ -2,7 +2,7 @@
 # Cluster nodes
 ##
 resource "aws_security_group" "cluster_node" {
-  name        = "${var.cluster_name}_cluster_node"
+  name        = "${var.cluster_name}-cluster-node"
   description = "Cluster communication"
   vpc_id      = "${var.vpc_id}"
 
@@ -33,7 +33,7 @@ resource "aws_security_group_rule" "cluster_ingress_worker_node_https" {
 ##
 
 resource "aws_security_group" "worker_node" {
-  name        = "${var.cluster_name}_worker_node"
+  name        = "${var.cluster_name}-worker-node"
   description = "Security group for all nodes in the cluster"
   vpc_id      = "${var.vpc_id}"
 

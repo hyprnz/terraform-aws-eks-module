@@ -8,12 +8,6 @@ data "aws_ami" "eks_worker" {
   owners      = ["602401143452"] # Amazon EKS AMI Account ID
 }
 
-data "aws_eks_cluster" "this" {
-  name = "${var.cluster_name}"
-
-  depends_on = ["aws_eks_cluster.this"]
-}
-
 data "aws_eks_cluster_auth" "this" {
-  name = "${data.aws_eks_cluster.this.name}"
+  name = "${aws_eks_cluster.this.name}"
 }

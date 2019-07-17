@@ -9,8 +9,8 @@ version     = "${var.k8s_version}"
 vpc_config {
   security_group_ids    = ["${aws_security_group.cluster_node.id}"]
   subnet_ids            = ["${var.eks_master_subnet_ids}"]
-  endpoint_private_access = true
-  endpoint_public_access  = true
+  endpoint_private_access = "${var.eks_vpc_enable_endpoint_private_access}"
+  endpoint_public_access  = "${var.eks_vpc_enable_endpoint_public_access}"
 }
 
 enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
@@ -47,12 +47,12 @@ resource "aws_autoscaling_group" "worker_node" {
   launch_configuration = "${aws_launch_configuration.worker_node.id}"
   max_size             = "${var.worker_asg_max_size}"
   min_size             = "${var.worker_asg_min_size}"
-  name                 = "${var.cluster_name}_worker_node"
+  name                 = "${var.cluster_name}-worker-node"
   vpc_zone_identifier  = ["${var.eks_worker_subnet_ids}"]
 
   tag {
     key                 = "Name"
-    value               = "${var.cluster_name}_worker_node"
+    value               = "${var.cluster_name}-worker-node"
     propagate_at_launch = true
   }
 
