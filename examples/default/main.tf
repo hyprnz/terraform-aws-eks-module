@@ -21,7 +21,7 @@ data "aws_subnet_ids" "public" {
 module "example" {
   source = "../../"
 
-  cluster_name                            = "eks_env_example"
+  cluster_name                            = "eks-env-example"
   k8s_version                             = 1.13
   vpc_id                                  = "${var.vpc_id}"
   eks_master_subnet_ids                   = "${concat(data.aws_subnet_ids.public.ids, data.aws_subnet_ids.private.ids)}"
@@ -34,5 +34,5 @@ module "example" {
 
 variable "vpc_id" {
   description = "The id of the vpc used for EKS"
-  default = "vpc-03c23c31c01c96069"
+  default = ""
 }
