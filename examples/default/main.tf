@@ -30,6 +30,8 @@ module "example" {
   worker_node_instance_type               = "t3.small"
   worker_asg_desired_count                = 3
   worker_asg_max_size                     = 3
+
+  maproles_team_role_arn                  = ""
 }
 
 variable "vpc_id" {

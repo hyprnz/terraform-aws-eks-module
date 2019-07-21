@@ -59,3 +59,12 @@ variable "certificate_authority_write_path" {
   default     = "./"
 }
 
+variable "maproles_team_role_arn" {
+  description = "The arn of the IAM role that maps to a Kubernetes role"
+}
+
+variable "maproles_username" {
+  description = "The user name of the product teams for the maprole config"
+  default = "kubectl-user-access"
+}
+

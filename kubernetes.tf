@@ -19,6 +19,10 @@ resource "kubernetes_config_map" "aws_auth" {
   groups:
     - system:bootstrappers
     - system:nodes
+- rolearn: ${var.maproles_team_role_arn}
+  username: "${var.maproles_username}"
+  groups:
+    - system:masters
 MAPROLES
   }
 }
