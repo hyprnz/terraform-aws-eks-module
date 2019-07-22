@@ -2,7 +2,9 @@ variable "cluster_name" {
   description = "The EKS cluster name"
 }
 
-variable "vpc_id" {}
+variable "vpc_id" {
+  description = "The vpc_id that the cluster will bind to"
+}
 
 variable "eks_vpc_enable_endpoint_private_access" {
   description = "Enable EKS cluster endpoint from within the VPC"
