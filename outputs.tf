@@ -9,5 +9,3 @@ output "platform_version" {
 output "version" {
   value = "${aws_eks_cluster.this.version}"
 }
-
-

@@ -1,28 +1,27 @@
 variable "cluster_name" {
   description = "The EKS cluster name"
 }
-variable "vpc_id" {
-}
+
+variable "vpc_id" {}
 
 variable "eks_vpc_enable_endpoint_private_access" {
   description = "Enable EKS cluster endpoint from within the VPC"
-  default = true
+  default     = true
 }
 
 variable "eks_vpc_enable_endpoint_public_access" {
   description = "Enable EKS cluster endpoint from the internet"
-  default = false
+  default     = false
 }
-
 
 variable "eks_master_subnet_ids" {
   description = "Subnet ids for the EKS Master Cluster"
-  default = []
+  default     = []
 }
 
 variable "eks_worker_subnet_ids" {
   description = "Subnet ids for the EKS worker nodes"
-  default = []
+  default     = []
 }
 
 variable "worker_node_instance_type" {
@@ -39,11 +38,8 @@ variable "worker_asg_max_size" {
 
 variable "worker_asg_min_size" {
   description = "Minimum number of nodes for worker asg"
-  default = 1
+  default     = 1
 }
-
-
-
 
 variable "k8s_version" {
   description = "The K8s version to use on the cluster"
@@ -65,6 +61,5 @@ variable "maproles_team_role_arn" {
 
 variable "maproles_username" {
   description = "The user name of the product teams for the maprole config"
-  default = "kubectl-user-access"
+  default     = "kubectl-user-access"
 }
-

@@ -71,4 +71,3 @@ resource "aws_security_group_rule" "worker_node_ingress_cluster" {
   to_port                  = 65535
   type                     = "ingress"
 }
-
