@@ -1,6 +1,3 @@
-provider "local" {
-  version = "~>1.3"
-}
 
 locals {
   ##
@@ -16,8 +13,8 @@ contexts:
 - context:
     cluster: ${var.cluster_name}
     user: aws
-  name: jarden_aws_eks_uat
-current-context: jarden_aws_eks_uat
+  name: ${var.cluster_name}
+current-context: ${var.cluster_name}
 kind: Config
 preferences: {}
 users:
