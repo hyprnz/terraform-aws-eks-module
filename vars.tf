@@ -47,16 +47,6 @@ variable "k8s_version" {
   description = "The K8s version to use on the cluster"
 }
 
-variable "kubconfig_write_path" {
-  description = "path to write kubeconfig file"
-  default     = "./"
-}
-
-variable "certificate_authority_write_path" {
-  description = "path to write the control plane certificate"
-  default     = "./"
-}
-
 variable "maproles_team_role_arn" {
   description = "The arn of the IAM role that maps to a Kubernetes role"
 }

@@ -17,3 +17,8 @@ output "version" {
   description = "EKS Kubernetes version"
   value       = "${aws_eks_cluster.this.version}"
 }
+
+output "cluster_config" {
+  description = "Kube config file of the current cluster"
+  value       = "${local.kubeconfig}"
+}

@@ -7,6 +7,7 @@ apiVersion: v1
 clusters:
 - cluster:
     server: ${aws_eks_cluster.this.endpoint}
+    certificate-authority-data: "${aws_eks_cluster.this.certificate_authority.0.data}"
   name: ${var.cluster_name}
 contexts:
 - context:
