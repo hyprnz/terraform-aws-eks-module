@@ -35,7 +35,7 @@ variable "worker_asg_desired_count" {
 }
 
 variable "worker_asg_max_size" {
-  description = "Maximun number of nodes for worker asg"
+  description = "Maximum number of nodes for worker asg"
 }
 
 variable "worker_asg_min_size" {
