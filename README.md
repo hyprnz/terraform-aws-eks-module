@@ -19,6 +19,7 @@ The cluster_config output can be used to provide the kubectl connection configur
 | eks\_vpc\_enable\_endpoint\_public\_access | Enable EKS cluster endpoint from the internet | string | `"false"` | no |
 | eks\_worker\_subnet\_ids | Subnet ids for the EKS worker nodes | list | `<list>` | no |
 | maproles\_username | The user name of the product teams for the maprole config | string | `"kubectl-user-access"` | no |
+| supports\_kube2iam | A flag to control if an additional IAM policy to assume roles for Kube2Iam is added to worker node role | string | `"false"` | no |
 | worker\_asg\_min\_size | Minimum number of nodes for worker asg | string | `"1"` | no |
 
 ## Outputs
