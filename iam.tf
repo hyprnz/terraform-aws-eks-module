@@ -72,3 +72,34 @@ resource "aws_iam_instance_profile" "eks_worker_node" {
   name = "${var.cluster_name}_worker_node"
   role = "${aws_iam_role.worker_node.name}"
 }
+
+resource "aws_iam_policy" "eks_worker_kube2iam" {
+  count = "${var.supports_kube2iam ? 1 : 0}"
+
+  name        = "EKSWorkerKube2IamAssumeRolePolicy"
+  description = "Policy to allow Roles to be assumed by Kube2Iam"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "sts:AssumeRole"
+      ],
+      "Resource": [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/k8s-*"
+      ]
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "worker_node_kube2iam" {
+  count = "${var.supports_kube2iam ? 1 : 0}"
+
+  policy_arn = "${aws_iam_policy.eks_worker_kube2iam.arn}"
+  role       = "${aws_iam_role.worker_node.name}"
+}

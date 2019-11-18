@@ -55,3 +55,8 @@ variable "maproles_username" {
   description = "The user name of the product teams for the maprole config"
   default     = "kubectl-user-access"
 }
+
+variable "supports_kube2iam" {
+  description = "A flag to control if an addaitional IAM poliy to assume roles for Kube2Iam is added to worker node role"
+  default     = false
+}
