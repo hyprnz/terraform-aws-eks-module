@@ -7,7 +7,7 @@ apiVersion: v1
 clusters:
 - cluster:
     server: ${aws_eks_cluster.this.endpoint}
-    certificate-authority-data: "${aws_eks_cluster.this.certificate_authority.0.data}"
+    certificate-authority-data: "${aws_eks_cluster.this.certificate_authority[0].data}"
   name: ${var.cluster_name}
 contexts:
 - context:
@@ -29,12 +29,15 @@ users:
         - "${var.cluster_name}"
 KUBECONFIG
 
+
   ##
   # Worker node user data payload
   ##
   worker_node_userdata = <<USERDATA
 #!/bin/bash
 set -o xtrace
-/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.this.endpoint}' --b64-cluster-ca '${aws_eks_cluster.this.certificate_authority.0.data}' '${var.cluster_name}'
+/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.this.endpoint}' --b64-cluster-ca '${aws_eks_cluster.this.certificate_authority[0].data}' '${var.cluster_name}'
 USERDATA
+
 }
+
