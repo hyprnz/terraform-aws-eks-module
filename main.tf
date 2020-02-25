@@ -32,6 +32,7 @@ resource "aws_launch_configuration" "worker_node" {
   name_prefix          = "${var.cluster_name}"
   security_groups      = ["${aws_security_group.worker_node.id}"]
   user_data_base64     = "${base64encode(local.worker_node_userdata)}"
+  key_name             = "${var.ssh_key_name}"
 
   lifecycle {
     create_before_destroy = true
