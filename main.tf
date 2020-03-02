@@ -31,7 +31,7 @@ resource "aws_launch_configuration" "worker_node" {
   instance_type        = "${var.worker_node_instance_type}"
   name_prefix          = "${var.cluster_name}"
   security_groups      = ["${aws_security_group.worker_node.id}"]
-  user_data_base64     = "${base64encode(local.worker_node_userdata)}"
+  user_data            = "${data.template_file.user_data.rendered}"
   key_name             = "${var.ssh_key_name}"
 
   lifecycle {
