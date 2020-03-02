@@ -1,8 +1,8 @@
 module "example" {
   source = "../../"
 
-  providers {
-    aws = "aws"
+  providers = {
+    aws = aws
   }
 
   cluster_name                          = "eks-stage-example"

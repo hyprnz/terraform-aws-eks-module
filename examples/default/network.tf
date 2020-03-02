@@ -2,7 +2,7 @@
 resource "aws_vpc" "test_vpc" {
   cidr_block = "10.0.0.0/16"
 
-  tags {
+  tags = {
     Name = "EKS Example VPC"
   }
 
@@ -16,7 +16,7 @@ resource "aws_subnet" "private1" {
   vpc_id            = aws_vpc.test_vpc.id
   availability_zone = "ap-southeast-2a"
 
-  tags {
+  tags = {
     Name = "EKS Example Private Subnet"
   }
 
@@ -30,7 +30,7 @@ resource "aws_subnet" "private2" {
   vpc_id            = aws_vpc.test_vpc.id
   availability_zone = "ap-southeast-2b"
 
-  tags {
+  tags = {
     Name = "EKS Example Private Subnet"
   }
 
@@ -44,7 +44,7 @@ resource "aws_subnet" "private3" {
   vpc_id            = aws_vpc.test_vpc.id
   availability_zone = "ap-southeast-2c"
 
-  tags {
+  tags = {
     Name = "EKS Example Private Subnet"
   }
 
@@ -58,7 +58,7 @@ resource "aws_subnet" "public1" {
   vpc_id            = aws_vpc.test_vpc.id
   availability_zone = "ap-southeast-2c"
 
-  tags {
+  tags = {
     Name = "EKS Example Public Subnet"
   }
 
@@ -72,7 +72,7 @@ resource "aws_subnet" "public2" {
   vpc_id            = aws_vpc.test_vpc.id
   availability_zone = "ap-southeast-2b"
 
-  tags {
+  tags = {
     Name = "EKS Example Public Subnet"
   }
 
@@ -86,7 +86,7 @@ resource "aws_subnet" "public3" {
   vpc_id            = aws_vpc.test_vpc.id
   availability_zone = "ap-southeast-2a"
 
-  tags {
+  tags = {
     Name = "EKS Example Public Subnet"
   }
 
@@ -131,7 +131,7 @@ resource "aws_route_table" "private-router" {
     nat_gateway_id = aws_nat_gateway.this.id
   }
 
-  tags {
+  tags = {
     Name = "Private Subnet"
   }
 }
