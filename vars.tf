@@ -61,3 +61,12 @@ variable "supports_kube2iam" {
   default     = false
 }
 
+variable "ssh_key_name" {
+  description = "The key pair to use for ssh connections"
+  default     = ""
+}
+
+variable "cloudwatch_log_retention" {
+  description = "The retention period in days for all CloudWatch Log Group. Defaults to `7 days`"
+  default     = 7
+}

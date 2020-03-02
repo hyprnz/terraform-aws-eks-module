@@ -21,5 +21,6 @@ output "version" {
 output "cluster_config" {
   description = "Kube config file of the current cluster"
   value       = local.kubeconfig
+  sensitive   = true
 }
 

@@ -18,7 +18,6 @@ resource "aws_iam_role" "cluster_node" {
 ]
 }
 POLICY
-
 }
 
 resource "aws_iam_role_policy_attachment" "amazon_eks_cluster_policy" {
@@ -52,7 +51,6 @@ resource "aws_iam_role" "worker_node" {
   ]
 }
 POLICY
-
 }
 
 resource "aws_iam_role_policy_attachment" "worker_node_AmazonEKSWorkerNodePolicy" {
@@ -97,7 +95,6 @@ resource "aws_iam_policy" "eks_worker_kube2iam" {
   ]
 }
 EOF
-
 }
 
 resource "aws_iam_role_policy_attachment" "worker_node_kube2iam" {
@@ -107,3 +104,75 @@ resource "aws_iam_role_policy_attachment" "worker_node_kube2iam" {
   role       = aws_iam_role.worker_node.name
 }
 
+resource "aws_iam_policy" "worker_node_ssm_session_manager" {
+  name        = "EKSWorkerSesionManagerPolicy"
+  description = "Policy to allow EC2 instances to connect with Session Manager"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssmmessages:CreateControlChannel",
+        "ssmmessages:CreateDataChannel",
+        "ssmmessages:OpenControlChannel",
+        "ssmmessages:OpenDataChannel",
+        "ssm:UpdateInstanceInformation"
+      ],
+      "Resource": ["*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "s3:GetEncryptionConfiguration"
+      ],
+      "Resource": ["*"]
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "worker_node_ssm" {
+  policy_arn = aws_iam_policy.worker_node_ssm_session_manager.arn
+  role       = aws_iam_role.worker_node.name
+}
+
+resource "aws_iam_policy" "worker_node_cloudwatch" {
+  name        = "EKSWorkerCloudWatch"
+  description = "Policy to allow EC2 instances to send logs and metrics to CloudWatch"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "logs:DescribeLogStreams"
+      ],
+      "Resource": [
+        "arn:aws:logs:*:*:*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "cloudwatch:PutMetricData"
+      ],
+      "Resource": ["*"]
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "worker_node_cloudwatch" {
+  policy_arn = aws_iam_policy.worker_node_cloudwatch.arn
+  role       = aws_iam_role.worker_node.name
+}

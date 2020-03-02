@@ -29,15 +29,9 @@ users:
         - "${var.cluster_name}"
 KUBECONFIG
 
+  cluster_log_group = "${format("/aws/eks/%s/cluster", var.cluster_name)}"
 
-  ##
-  # Worker node user data payload
-  ##
-  worker_node_userdata = <<USERDATA
-#!/bin/bash
-set -o xtrace
-/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.this.endpoint}' --b64-cluster-ca '${aws_eks_cluster.this.certificate_authority[0].data}' '${var.cluster_name}'
-USERDATA
+  worker_node_log_group = "${format("/aws/eks/%s/node_logs", var.cluster_name)}"
 
 }
 
