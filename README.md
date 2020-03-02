@@ -43,7 +43,7 @@ An example has been provided at examples/default. This example can be used to un
 |------|---------|
 | aws | ~> 2.19 |
 | kubernetes | 1.10 |
-| template | ~> 2.1.2 ~> 2.1.2 |
+| template | ~> 2.1.2 |
 
 ## Inputs
 
