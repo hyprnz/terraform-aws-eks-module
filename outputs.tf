@@ -23,5 +23,3 @@ output "cluster_config" {
   value       = "${local.kubeconfig}"
   sensitive   = true
 }
-
-

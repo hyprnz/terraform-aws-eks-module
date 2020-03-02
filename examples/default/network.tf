@@ -89,7 +89,7 @@ resource "aws_subnet" "public3" {
   tags {
     Name = "EKS Example Public Subnet"
   }
-  
+
   lifecycle {
     ignore_changes = ["tags"]
   }

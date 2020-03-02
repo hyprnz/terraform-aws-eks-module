@@ -29,8 +29,7 @@ users:
         - "${var.cluster_name}"
 KUBECONFIG
 
-cluster_log_group = "${format("/aws/eks/%s/cluster", var.cluster_name)}"
+  cluster_log_group = "${format("/aws/eks/%s/cluster", var.cluster_name)}"
 
-worker_node_log_group = "${format("/aws/eks/%s/node_logs",var.cluster_name)}"
-
+  worker_node_log_group = "${format("/aws/eks/%s/node_logs",var.cluster_name)}"
 }
