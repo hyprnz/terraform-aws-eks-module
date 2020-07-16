@@ -76,7 +76,7 @@ resource "aws_iam_instance_profile" "eks_worker_node" {
 resource "aws_iam_policy" "eks_worker_kube2iam" {
   count = var.supports_kube2iam ? 1 : 0
 
-  name        = "EKSWorkerKube2IamAssumeRolePolicy"
+  name        = "${var.cluster_name}WorkerKube2IamAssumeRolePolicy"
   description = "Policy to allow Roles to be assumed by Kube2Iam"
 
   policy = <<EOF
@@ -105,7 +105,7 @@ resource "aws_iam_role_policy_attachment" "worker_node_kube2iam" {
 }
 
 resource "aws_iam_policy" "worker_node_ssm_session_manager" {
-  name        = "EKSWorkerSesionManagerPolicy"
+  name        = "${var.cluster_name}WorkerSesionManagerPolicy"
   description = "Policy to allow EC2 instances to connect with Session Manager"
 
   policy = <<EOF
@@ -141,7 +141,7 @@ resource "aws_iam_role_policy_attachment" "worker_node_ssm" {
 }
 
 resource "aws_iam_policy" "worker_node_cloudwatch" {
-  name        = "EKSWorkerCloudWatch"
+  name        = "${var.cluster_name}WorkerCloudWatchPolicy"
   description = "Policy to allow EC2 instances to send logs and metrics to CloudWatch"
 
   policy = <<EOF
