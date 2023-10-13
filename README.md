@@ -1,4 +1,7 @@
 # Terraform AWS EKS Module
+
+**This module is no longer being maintained** <br/>
+
 This module provisions an EKS control plane and a Worker node ASG. Adds the `aws-auth` ConfigMap from the Terraform Kubernetes Provider, allowing worker nodes to automatically join the control plane without the need for a separate `kubectl` command. The module is dependent on a configured VPC.
 
 It takes about ~10 mins for a control plane to converge.
